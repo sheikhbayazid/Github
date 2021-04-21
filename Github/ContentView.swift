@@ -11,15 +11,40 @@ struct ContentView: View {
     @StateObject var viewModel = ViewModel()
     var body: some View {
         VStack {
-            ContributionGraphView(
-                days: viewModel.days,
-                selectedDay: { viewModel.selectedDay = $0 }
-            ).frame(width: UIScreen.main.bounds.size.width - 50, height: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            Text("Github Contribution Stats")
+                .font(.title3)
+                .foregroundColor(.primary)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 15)
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(10)
+            
+            Spacer()
+            
+            ZStack {
+                ContributionGraphView(
+                    days: viewModel.days,
+                    selectedDay: { viewModel.selectedDay = $0 }
+                )
+                
+                VStack {
+                    HStack {
+                        Text("sheikhbayazid")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .padding()
+                        Spacer()
+                    }
+                    Spacer()
+                }
+            }.frame(width: UIScreen.main.bounds.size.width - 50, height: 150)
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.green,lineWidth: 1))
             
             if let selectedDay = viewModel.selectedDay {
-                Text("You made \(selectedDay.dataCount) contribution(s) on \(DateService.shared.dateFormatter.string(from: selectedDay.date))")
+                Text("\(selectedDay.dataCount) contribution(s) on \(DateService.shared.dateFormatterForView.string(from: selectedDay.date))")
             }
+            
+            Spacer()
         }
     }
 }

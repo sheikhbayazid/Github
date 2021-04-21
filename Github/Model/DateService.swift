@@ -16,4 +16,10 @@ class DateService {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
+    
+    var dateFormatterForView: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyy"
+        return formatter
+    }()
 }
